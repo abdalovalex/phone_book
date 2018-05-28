@@ -20,37 +20,39 @@ public class DBFilter implements Filter
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
         String servletPath = request.getServletPath();
-        Pattern regexp = Pattern.compile(".*(.css)|(.js)$");
-        Matcher m = regexp.matcher(servletPath);
+        Pattern pattern = Pattern.compile(".*(.css)|(.js)$");
+        Matcher matched = pattern.matcher(servletPath);
 
         /*
           Если это файлы css/js то пропускаем
           Иначе добавляем коннект в request
          */
-        if (m.find())
-        {
+        if (matched.find())
             filterChain.doFilter(servletRequest, servletResponse);
-            return;
-        }
         else
         {
             Connection connection = null;
             try
             {
                 connection = PostgresConnector.connection();
+                if (connection == null)
+                    throw new Exception("Не удалось связаться с БД!");
+
+                // отключение автокоммита
+                connection.setAutoCommit(false);
                 StoreConnection.storeConnection(servletRequest, connection);
                 filterChain.doFilter(servletRequest, servletResponse);
-                if (connection != null)
-                {
-                    System.out.println("Close connection");
-                    PostgresConnector.close(connection);
-                }
+
+                PostgresConnector.close(connection);
             }
             catch (Exception e)
             {
                 e.printStackTrace();
                 if (connection != null)
                     PostgresConnector.close(connection);
+
+                request.getSession().setAttribute("error_db", e.getMessage());
+                request.getServletContext().getRequestDispatcher("/WEB-INF/view/error.jsp").forward(request, servletResponse);
             }
         }
     }

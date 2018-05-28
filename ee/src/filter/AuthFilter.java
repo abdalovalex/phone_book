@@ -1,7 +1,7 @@
 package filter;
 
 import Bean.User;
-import db.UserModel;
+import Model.UserModel;
 import utils.StoreConnection;
 
 import javax.servlet.*;
@@ -38,7 +38,14 @@ public class AuthFilter implements Filter
         // Если урл login, то пропускаем
         if (servletPath.equals("/login"))
         {
-            filterChain.doFilter(request, servletResponse);
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        // Если атрибут сессии User не пустой, значит пользователь все еще авторизован
+        if (request.getSession().getAttribute("User") != null)
+        {
+            filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
 

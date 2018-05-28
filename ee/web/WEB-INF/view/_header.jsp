@@ -5,6 +5,7 @@
   Time: 22:04
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,4 +16,7 @@
 </head>
 <body>
 <div class="container">
-
+<c:if test="${not empty error_db}" scope="session" var="result">
+    <div class="alert alert-danger">${error_db}</div>
+    <c:remove var="error_db" scope="session" />
+</c:if>

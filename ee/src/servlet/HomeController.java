@@ -1,7 +1,9 @@
 package servlet;
 
-import Bean.ContactRecord;
-import db.PhoneBookModel;
+import Bean.Contact;
+import Bean.User;
+import Model.ContactModel;
+import db.PostgresConnector;
 import utils.StoreConnection;
 
 import javax.servlet.ServletException;
@@ -23,15 +25,17 @@ public class HomeController extends HttpServlet
         Connection connection = StoreConnection.getStoreConnection(req);
         try
         {
-            ArrayList<ContactRecord> phoneBook = PhoneBookModel.find(connection, 1);
-            connection.close();
+            User user = (User) req.getSession().getAttribute("User");
+            // Ищем все контакты пользователя
+            ArrayList<Contact> contactList = ContactModel.find(connection, user.getId());
+            PostgresConnector.close(connection);
 
-            req.setAttribute("phoneBook", phoneBook);
-
+            req.setAttribute("contactList", contactList);
         }
         catch (SQLException e)
         {
             e.printStackTrace();
+            req.getSession().setAttribute("error_contacts_find", "Не удалось найти контакты");
         }
 
         req.getServletContext().getRequestDispatcher("/WEB-INF/view/home.jsp").forward(req, resp);

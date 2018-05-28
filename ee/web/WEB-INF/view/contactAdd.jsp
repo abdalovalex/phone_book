@@ -8,6 +8,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="_header.jsp"/>
+<ol class="breadcrumb">
+    <li><a href="/home">Главная</a></li>
+    <li class="active"><a href="/contact-add">Добавление контакта</a></li>
+</ol>
+<c:if test="${not empty error_add}" scope="session" var="result">
+    <div class="alert alert-danger">${error_add}</div>
+    <c:remove var="error_add" scope="session" />
+</c:if>
 <div class="starter-template">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -36,9 +44,9 @@
                                 <div class="col-md-10" style="margin-bottom: 15px;">
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="Phone[]" value="">
-                                        <span class="input-group-btn">
-                                        <button class="btn btn-default add_phone" type="button">+</button>
-                                    </span>
+                                            <span class="input-group-btn">
+                                            <button class="btn btn-default add_phone" type="button">+</button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -97,8 +105,8 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="SocialLink[]" value="${value}">
                                         <span class="input-group-btn">
-                                        <button class="btn btn-default social_link_list" type="button">+</button>
-                                    </span>
+                                            <button class="btn btn-default social_link_list" type="button">+</button>
+                                        </span>
                                     </div>
                                 </div>
                             </c:forEach>

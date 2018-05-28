@@ -1,4 +1,4 @@
-package db;
+package Model;
 
 import Bean.User;
 

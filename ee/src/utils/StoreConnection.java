@@ -3,9 +3,10 @@ package utils;
 import javax.servlet.ServletRequest;
 import java.sql.Connection;
 
+
 public class StoreConnection
 {
-    public static final String DB_CONNECTION = "DB_CONNECTION";
+    private static final String DB_CONNECTION = "DB_CONNECTION";
 
     public static void storeConnection(ServletRequest request, Connection connection)
     {

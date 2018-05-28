@@ -1,5 +1,8 @@
 package Bean;
 
+/**
+ * Bean телефон
+ */
 public class Phone
 {
     private String phone;

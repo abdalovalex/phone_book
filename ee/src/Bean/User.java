@@ -1,5 +1,8 @@
 package Bean;
 
+/**
+ * Bean пользователь
+ */
 public class User
 {
     private Integer id;

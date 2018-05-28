@@ -27,10 +27,9 @@ public class ContactFilter implements Filter
             Boolean isError = false;
             Map<Integer, String> phone_errors = new HashMap<>();
             String[] phone = servletRequest.getParameterValues("Phone[]");
-            String name = servletRequest.getParameter("contact");
+            String name = servletRequest.getParameter("name");
             String value;
 
-            System.out.println(name);
             // Проверка обязательного заполнения ФИО контакта
             if (name == null || name.trim().length() == 0)
             {

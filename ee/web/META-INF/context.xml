@@ -7,6 +7,6 @@
     username="app"
     password="app"
     driverClassName="org.postgresql.Driver"
-    url="jdbc:postgresql://localhost:5432/app"
+    url="jdbc:postgresql://10.200.152.5:5432/app"
 />
 </Context>

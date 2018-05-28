@@ -7,8 +7,15 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Коннетор к postgresql
+ */
 public class PostgresConnector
 {
+    /**
+     * Соедиенние с БД
+     * @return DataSource|null
+     */
     public static Connection connection()
     {
         try
@@ -26,6 +33,10 @@ public class PostgresConnector
         return null;
     }
 
+    /**
+     * Закрыть соединение
+     * @param connection соединение
+     */
     public static void close(Connection connection)
     {
         try

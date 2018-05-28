@@ -1,5 +1,8 @@
 package Bean;
 
+/**
+ * Bean социальная сеть
+ */
 public class SocialLink
 {
     private String link;

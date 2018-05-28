@@ -9,12 +9,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="_header.jsp"/>
-
-<h4>Привет
-    <jsp:useBean id="User" class="Bean.User" scope="session" />
-    <jsp:getProperty name="User" property="name"/> - авторизация прошла успешно!</h4>
-<p class="lead"><a href="/logout">Выйти</a></p>
-
+<ol class="breadcrumb">
+    <li class="active"><a href="/home">Главная</a></li>
+</ol>
+<div class="row">
+    <div class="col-md-12">
+        <h4>
+        Привет
+        <jsp:useBean id="User" class="Bean.User" scope="session" />
+        <jsp:getProperty name="User" property="name"/>
+        <a href="/logout" class="pull-right">Выйти</a>
+        </h4>
+    </div>
+</div>
+<c:if test="${not empty error_contacts_find}" scope="session" var="result">
+    <div class="alert alert-danger">${error_contacts_find}</div>
+    <c:remove var="error_contacts_find" scope="session" />
+</c:if>
 <div class="starter-template">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -31,17 +42,17 @@
                     <th>Ред.</th>
                     <th>Уд.</th>
                 </tr>
-                <c:forEach items="${phoneBook}" var="record">
+                <c:forEach items="${contactList}" var="contact">
                     <tr>
-                        <td>${record.getName()}</td>
+                        <td>${contact.getName()}</td>
                         <td>
-                            <c:forEach items="${record.getPhone()}" var="phone">
-                                <a href="tel:"><span class="phone">${phone.getPhone()}</span></a>
+                            <c:forEach items="${contact.getPhone()}" var="phone">
+                                <a href="tel:${phone.getPhone()}"><span class="phone">${phone.getPhone()}</span></a>
                             </c:forEach>
                         </td>
-                        <td>${record.getAddress()}</td>
+                        <td>${contact.getAddress()}</td>
                         <td>
-                            <c:forEach items="${record.getLink()}" var="link">
+                            <c:forEach items="${contact.getLink()}" var="link">
                                 ${link.getLink()}
                             </c:forEach>
                         </td>

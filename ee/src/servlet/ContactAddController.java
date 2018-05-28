@@ -1,6 +1,8 @@
 package servlet;
 
-import db.PhoneBookModel;
+import Bean.User;
+import Model.ContactModel;
+import db.PostgresConnector;
 import utils.StoreConnection;
 
 import javax.servlet.ServletException;
@@ -10,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 @WebServlet(urlPatterns = {"/contact-add"})
 public class ContactAddController extends HttpServlet
@@ -25,16 +26,13 @@ public class ContactAddController extends HttpServlet
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         Connection connection = StoreConnection.getStoreConnection(req);
-        try
-        {
-            System.out.println(PhoneBookModel.add(connection, 1, req));
-            connection.close();
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        User user = (User) req.getSession().getAttribute("User");
 
+        // Добавленгие контакта
+        if (!ContactModel.add(connection, user.getId(), req))
+            req.getSession().setAttribute("error_add", "Не удалось добавить контакт");
+
+        PostgresConnector.close(connection);
         req.getServletContext().getRequestDispatcher("/WEB-INF/view/contactAdd.jsp").forward(req, resp);
     }
 }

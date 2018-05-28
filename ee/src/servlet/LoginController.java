@@ -1,7 +1,8 @@
 package servlet;
 
 import Bean.User;
-import db.UserModel;
+import Model.UserModel;
+import db.PostgresConnector;
 import utils.StoreConnection;
 
 import javax.servlet.ServletException;
@@ -36,11 +37,9 @@ public class LoginController extends HttpServlet
         try
         {
             user = UserModel.find(connection, login, password);
-            connection.close();
+            PostgresConnector.close(connection);
             if (user == null)
-            {
                 error = "Неверные логин или пароль";
-            }
         }
         catch (SQLException e)
         {

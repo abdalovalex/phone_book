@@ -2,12 +2,17 @@ package Bean;
 
 import java.util.ArrayList;
 
-public class ContactRecord
+/**
+ * Bean контакт
+ */
+public class Contact
 {
     private Integer id;
     private String name;
     private String address;
+    // Список телефонов контакта
     private ArrayList<Phone> phone;
+    // Список соц. сетей контакта
     private ArrayList<SocialLink> link;
 
     public ArrayList<SocialLink> getLink()
