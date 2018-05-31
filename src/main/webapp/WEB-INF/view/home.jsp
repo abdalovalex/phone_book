@@ -26,6 +26,14 @@
     <div class="alert alert-danger">${error_contacts_find}</div>
     <c:remove var="error_contacts_find" scope="session" />
 </c:if>
+<c:if test="${not empty error_not_find_contact}" scope="session" var="result">
+    <div class="alert alert-danger">${error_not_find_contact}</div>
+    <c:remove var="error_not_find_contact" scope="session" />
+</c:if>
+<c:if test="${not empty error_delete}" scope="session" var="result">
+    <div class="alert alert-danger">${error_delete}</div>
+    <c:remove var="error_delete" scope="session" />
+</c:if>
 <div class="starter-template">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -56,8 +64,8 @@
                                 ${link.getLink()}
                             </c:forEach>
                         </td>
-                        <td></td>
-                        <td></td>
+                        <td><a href="/contact-update?id=${contact.getId()}">Редактировать</a></td>
+                        <td><a href="/contact-delete?id=${contact.getId()}">Удалить</a></td>
                     </tr>
                 </c:forEach>
             </table>

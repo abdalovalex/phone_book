@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="_header.jsp"/>
 <form action="login" class="form-signin" method="post">
-    <h2 class="form-signin-heading">Введите учетные даныне</h2>
+    <h2 class="form-signin-heading">Введите учетные данные</h2>
     <p style="color: red;">${error}</p>
     <input type="text" class="form-control" placeholder="Логин" name="login" required autofocus>
     <input type="password" class="form-control" placeholder="Пароль" name="password" required>

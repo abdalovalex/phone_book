@@ -26,10 +26,10 @@ public class AuthFilter implements Filter
 
         String servletPath = request.getServletPath();
         Pattern regexp = Pattern.compile(".*(.css)|(.js)$");
-        Matcher m = regexp.matcher(servletPath);
+        Matcher matched = regexp.matcher(servletPath);
 
         // Если это файлы css/js то пропускаем
-        if (m.find())
+        if (matched.find())
         {
             filterChain.doFilter(servletRequest, servletResponse);
             return;

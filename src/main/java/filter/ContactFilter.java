@@ -10,6 +10,7 @@ import java.util.Map;
 @WebFilter(filterName = "ContactFilter", urlPatterns = {"/contact-add"})
 public class ContactFilter implements Filter
 {
+    // Длина телефонного номера, учитываются только циры
     private static final int PHONE_LENGTH = 11;
 
     @Override
